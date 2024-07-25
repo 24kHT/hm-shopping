@@ -9,6 +9,8 @@ import Cart from '@/views/layout/cart.vue'
 import My from '@/views/layout/my.vue'
 import Myorder from '@/views/myorder'
 import Search from '@/views/search'
+import Prodetail from '@/views/prodetail'
+
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -48,6 +50,10 @@ const routes = [
   {
     path: '/search',
     component: Search
+  },
+  {
+    path: '/prodetail/:id',
+    component: Prodetail
   }
 ]
 

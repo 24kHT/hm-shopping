@@ -1,6 +1,6 @@
 <template>
   <!-- 商品列表组件 -->
-  <div v-if="item.goods_name" class="goods-item" @click="$router.push('/prodetail')">
+  <div v-if="item.goods_name" class="goods-item" @click="$router.push(`/prodetail/${item.goods_id}`)">
     <div class="left">
       <img :src="item.goods_image" alt="">
     </div>
