@@ -14,16 +14,8 @@
 </template>
 
 <script>
-import request from '@/utils/request'
 export default {
-  name: 'layoutIndex',
-  async created () {
-    const res = await request({
-      url: '/page/detail',
-      method: 'get'
-    })
-    console.log(res)
-  }
+  name: 'layoutIndex'
 }
 </script>
 
