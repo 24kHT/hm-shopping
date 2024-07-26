@@ -13,9 +13,10 @@
     show-action
     placeholder="请输入搜索关键词"
     clearable
+    v-model="search"
     >
     <template #action>
-      <div>搜索</div>
+      <div @click="goSearch(search)">搜索</div>
     </template>
   </van-search>
 
@@ -23,21 +24,36 @@
       <div class="search-history">
         <div class="title">
           <span>最近搜索</span>
-          <van-icon name="delete-o"  size="16px"/>
+          <van-icon name="delete-o"  size="16px" @click="history=[]"/>
         </div>
         <div class="list">
-          <div class="list-item" @click="$router.push('/searchlist')">炒锅</div>
-          <div class="list-item" @click="$router.push('/searchlist')">电视</div>
-          <div class="list-item" @click="$router.push('/searchlist')">冰箱</div>
-          <div class="list-item" @click="$router.push('/searchlist')">手机</div>
+          <div class="list-item" v-for="item in history" :key="item" @click="goSearch(item)">{{ item }}</div>
         </div>
       </div>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'proDetailIndex'
+  name: 'proDetailIndex',
+  data () {
+    return {
+      history: ['手机', '电视', '显示屏', '键盘'],
+      search: ''
+    }
+  },
+  methods: {
+    // 搜索内容放置在开头
+    goSearch (key) {
+      // console.log(key)
+      const index = this.history.indexOf(key)
+      if (index !== -1) {
+        this.history.splice(index, 1)
+      }
+      this.history.unshift(key)
+    }
+  }
 }
 </script>
 
