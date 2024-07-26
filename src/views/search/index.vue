@@ -14,6 +14,7 @@
     placeholder="请输入搜索关键词"
     clearable
     v-model="search"
+    @search="handleEnter"
     >
     <template #action>
       <div @click="goSearch(search)">搜索</div>
@@ -47,6 +48,9 @@ export default {
   methods: {
     // 动态把搜索内容放置在开头
     goSearch (key) {
+      if (key === '') {
+        return
+      }
       // console.log(key)
       const index = this.history.indexOf(key)
       if (index !== -1) {
@@ -58,6 +62,9 @@ export default {
     clear () {
       this.history = []
       setHistoryList([])
+    },
+    handleEnter () {
+      this.goSearch(this.search)
     }
   }
 }
