@@ -21,10 +21,10 @@
   </van-search>
 
      <!-- 最近搜索 -->
-      <div class="search-history">
+      <div class="search-history" >
         <div class="title">
           <span>最近搜索</span>
-          <van-icon name="delete-o"  size="16px" @click="history=[]"/>
+          <van-icon name="delete-o"  size="16px" @click="clear"/>
         </div>
         <div class="list">
           <div class="list-item" v-for="item in history" :key="item" @click="goSearch(item)">{{ item }}</div>
@@ -54,6 +54,10 @@ export default {
       }
       this.history.unshift(key)
       setHistoryList(this.history)
+    },
+    clear () {
+      this.history = []
+      setHistoryList([])
     }
   }
 }
