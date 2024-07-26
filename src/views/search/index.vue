@@ -21,7 +21,7 @@
   </van-search>
 
      <!-- 最近搜索 -->
-      <div class="search-history" >
+      <div class="search-history" v-if="history.length>=1">
         <div class="title">
           <span>最近搜索</span>
           <van-icon name="delete-o"  size="16px" @click="clear"/>
