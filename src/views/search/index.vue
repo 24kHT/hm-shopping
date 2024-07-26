@@ -34,17 +34,18 @@
 </template>
 
 <script>
+import { getHistoryList, setHistoryList } from '@/utils/storage'
 
 export default {
   name: 'proDetailIndex',
   data () {
     return {
-      history: ['手机', '电视', '显示屏', '键盘'],
+      history: getHistoryList(),
       search: ''
     }
   },
   methods: {
-    // 搜索内容放置在开头
+    // 动态把搜索内容放置在开头
     goSearch (key) {
       // console.log(key)
       const index = this.history.indexOf(key)
@@ -52,6 +53,7 @@ export default {
         this.history.splice(index, 1)
       }
       this.history.unshift(key)
+      setHistoryList(this.history)
     }
   }
 }
