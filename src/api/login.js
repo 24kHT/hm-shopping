@@ -28,12 +28,3 @@ export const mobileLogin = (mobile, smsCode) => {
     }
   })
 }
-
-// 首页渲染
-export const getHome = () => {
-  return request.get('/page/detail', {
-    params: {
-      pageId: 0
-    }
-  })
-}

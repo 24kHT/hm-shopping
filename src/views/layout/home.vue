@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 导航条 -->
-      <van-nav-bar title="标题" fixed/>
+      <van-nav-bar title="首页" fixed/>
 
     <!-- 智慧商城搜索组件 -->
      <van-search
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getHome } from '@/api/login'
+import { getHome } from '@/api/home'
 import GoodsItem from '@/components/GoodsItem.vue'
 export default {
   name: 'homeIndex',
@@ -77,6 +77,8 @@ export default {
 <style lang="less" scoped>
 // 主题padding
 .home {
+  width: 375px;
+  overflow: hidden;
   padding-top: 100px;
   padding-bottom: 50px;
 }
