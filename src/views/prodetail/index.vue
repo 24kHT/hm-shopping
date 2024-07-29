@@ -46,21 +46,21 @@
     <!-- 商品评价 -->
     <div class="comment">
       <div class="comment-title">
-        <div class="left">商品评价 (5条)</div>
+        <div class="left">商品评价 ({{ comment_count }}条)</div>
         <div class="right">查看更多 <van-icon name="arrow" /> </div>
       </div>
       <div class="comment-list">
-        <div class="comment-item" v-for="item in 3" :key="item">
+        <div class="comment-item" v-for="item in commentList" :key="item.comment_id">
           <div class="top">
-            <img src="http://cba.itlike.com/public/uploads/10001/20230321/a0db9adb2e666a65bc8dd133fbed7834.png" alt="">
-            <div class="name">神雕大侠</div>
-            <van-rate :size="16" :value="5" color="#ffd21e" void-icon="star" void-color="#eee"/>
+            <img :src="item.user.avatar_url || defaultImg" alt="">
+            <div class="name">{{ item.user.nick_name }}</div>
+            <van-rate :size="16" :value="item.score/2" color="#ffd21e" void-icon="star" void-color="#eee"/>
           </div>
           <div class="content">
-            质量很不错 挺喜欢的
+            {{ item.content }}
           </div>
           <div class="time">
-            2023-03-21 15:01:35
+            {{ item.create_time }}
           </div>
         </div>
       </div>
@@ -89,28 +89,40 @@
 </template>
 
 <script>
-import { getDetailPro } from '@/api/prodetail'
+import { getComment, getDetailPro } from '@/api/prodetail'
+import defaultImg from '@/assets/default-avatar.png'
 
 export default {
   name: 'proDetailIndex',
   async created () {
     const res = await getDetailPro(this.id)
     this.detail = res.data.detail
-    console.log(this.detail)
+    // console.log(this.detail)
     this.goods_images = res.data.detail.goods_images
-    console.log(this.goods_images)
+    // console.log(this.goods_images)
+    this.getComment()
   },
   data () {
     return {
       current: 0,
       id: this.$route.params.id,
-      detail: null,
-      goods_images: []
+      detail: [],
+      goods_images: [],
+      comment_count: 3,
+      defaultImg,
+      commentList: []
+
     }
   },
   methods: {
     onChange (index) {
       this.current = index
+    },
+    // 获取商品评价
+    async getComment () {
+      const res = await getComment(this.id, this.comment_count)
+      this.commentList = res.data.list
+      console.log(this.commentList)
     }
   }
 }
