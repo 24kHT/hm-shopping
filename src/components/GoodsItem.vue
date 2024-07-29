@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 .goods-item {
   background-color: #fff;
   display:flex;
@@ -38,7 +38,6 @@ export default {
   padding: 10px;
   .left {
     width: 127px;
-    background-color: pink;
     img {
       width: 100%;
     }

@@ -23,7 +23,7 @@
         </ul>
       </div>
       <div class="right">
-        <div class="cate-goods" v-for="item in cateList[activeIndex]?.children" :key="item.category_id">
+        <div class="cate-goods" v-for="item in cateList[activeIndex]?.children" :key="item.category_id" @click="$router.push(`/searchlist?id=${item.category_id}`)">
           <img :src="item.image?.external_url" alt="">
           <p>{{ item.name }}</p>
         </div>
@@ -111,6 +111,11 @@ export default {
   }
 }
 
+// 导航样式定制
+.van-nav-bar {
+  z-index: 999;
+}
+
 // 搜索框样式定制
 .van-search {
   position: fixed;
@@ -118,4 +123,5 @@ export default {
   width: 100%;
   z-index: 999;
 }
+
 </style>

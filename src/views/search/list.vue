@@ -42,7 +42,11 @@ import GoodsItem from '@/components/GoodsItem.vue'
 export default {
   name: 'searchListIndex',
   async created () {
+    // 分类页跳转至搜索列表
+    this.categoryId = this.$route.query.id
+    // console.log(this.categoryId)
     const res = await getSearchList({
+      categoryId: this.categoryId,
       goodsName: this.querySearch,
       page: this.page
     })
@@ -52,7 +56,8 @@ export default {
   data () {
     return {
       page: 1,
-      proList: []
+      proList: [],
+      categoryId: ''
     }
   },
   components: {
