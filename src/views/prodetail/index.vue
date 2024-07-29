@@ -108,7 +108,7 @@ export default {
       id: this.$route.params.id,
       detail: [],
       goods_images: [],
-      comment_count: 3,
+      comment_count: 5,
       defaultImg,
       commentList: []
 
