@@ -81,19 +81,52 @@
         <van-icon name="shopping-cart-o" />
         <span>购物车</span>
       </div>
-      <div class="btn-add">加入购物车</div>
-      <div class="btn-buy">立刻购买</div>
+      <div class="btn-add" @click="addFn">加入购物车</div>
+      <div class="btn-buy" @click="buyFn">立刻购买</div>
     </div>
 
+    <!-- 动作弹窗 -->
+    <van-action-sheet v-model="showPannel" :title="mode==='cart'?'加入购物车':'立即购买'">
+      <div class="product">
+    <div class="product-title">
+      <div class="left">
+        <img :src="detail.goods_image" alt="">
+      </div>
+      <div class="right">
+        <div class="price">
+          <span>¥</span>
+          <span class="nowprice">9.99</span>
+        </div>
+        <div class="count">
+          <span>库存</span>
+          <span>55</span>
+        </div>
+      </div>
+    </div>
+    <div class="num-box">
+      <span>数量</span>
+      <countBox v-model="count"></countBox>
+    </div>
+    <div class="showbtn" v-if="detail.stock_total > 0">
+      <div class="btn" v-if="mode === 'cart'">加入购物车</div>
+      <div class="btn now" v-else>立刻购买</div>
+    </div>
+    <div class="btn-none" v-else>该商品已抢完</div>
+  </div>
+    </van-action-sheet>
   </div>
 </template>
 
 <script>
 import { getComment, getDetailPro } from '@/api/prodetail'
 import defaultImg from '@/assets/default-avatar.png'
+import countBox from '@/components/CountBox.vue'
 
 export default {
   name: 'proDetailIndex',
+  components: {
+    countBox
+  },
   async created () {
     const res = await getDetailPro(this.id)
     this.detail = res.data.detail
@@ -105,13 +138,20 @@ export default {
   data () {
     return {
       current: 0,
-      id: this.$route.params.id,
       detail: [],
       goods_images: [],
       comment_count: 5,
       defaultImg,
-      commentList: []
+      commentList: [],
+      showPannel: false,
+      mode: 'cart',
+      count: 1
 
+    }
+  },
+  computed: {
+    id () {
+      return this.$route.params.id
     }
   },
   methods: {
@@ -122,7 +162,15 @@ export default {
     async getComment () {
       const res = await getComment(this.id, this.comment_count)
       this.commentList = res.data.list
-      console.log(this.commentList)
+      // console.log(this.commentList)
+    },
+    addFn () {
+      this.mode = 'cart'
+      this.showPannel = true
+    },
+    buyFn () {
+      this.mode = 'buyNow'
+      this.showPannel = true
     }
   }
 }
@@ -277,6 +325,58 @@ export default {
 
 .tips {
   padding: 10px;
+}
+
+ .content {
+    padding: 16px 16px 16px 0px;
+  }
+
+.product {
+  .product-title {
+    display: flex;
+    .left {
+      img {
+        width: 90px;
+        height: 90px;
+      }
+      margin: 10px;
+    }
+    .right {
+      flex: 1;
+      padding: 10px;
+      .price {
+        font-size: 14px;
+        color: #fe560a;
+        .nowprice {
+          font-size: 24px;
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+
+  .num-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+  }
+
+  .btn, .btn-none {
+    height: 40px;
+    line-height: 40px;
+    margin: 20px;
+    border-radius: 20px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 148, 2);
+  }
+  .btn.now {
+    background-color: #fe5630;
+  }
+  .btn-none {
+    background-color: #cccccc;
+  }
 }
 
 </style>

@@ -1,8 +1,9 @@
 import Vue from 'vue'
 // 按需引入vant-ui插件
 
-import { Button, Tabbar, TabbarItem, NavBar, Toast, Search, Swipe, SwipeItem, Grid, GridItem, Image as VanImage, Icon, Rate } from 'vant'
+import { Button, Tabbar, TabbarItem, NavBar, Toast, Search, Swipe, SwipeItem, Grid, GridItem, Image as VanImage, Icon, Rate, ActionSheet } from 'vant'
 
+Vue.use(ActionSheet)
 Vue.use(Rate)
 Vue.use(Icon)
 
