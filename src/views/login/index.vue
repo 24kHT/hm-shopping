@@ -112,7 +112,9 @@ export default {
       this.$store.commit('user/setUserInfo', res.data)
       // 持久化存储
       setInfo(res.data)
-      this.$router.push('/')
+      // 跳转的页面
+      const pathUrl = this.$route.query.backUrl || '/'
+      this.$router.replace(pathUrl)
     }
   }
 }
