@@ -73,11 +73,11 @@
 
     <!-- 底部 -->
     <div class="footer">
-      <div class="icon-home">
+      <div class="icon-home" @click="$router.push('/home')">
         <van-icon name="wap-home-o" />
         <span>首页</span>
       </div>
-      <div class="icon-cart">
+      <div class="icon-cart" @click="$router.push('/cart')">
         <span v-if="totalCount > 0" class="num">{{ totalCount }}</span>
         <van-icon name="shopping-cart-o" />
         <span>购物车</span>
