@@ -78,6 +78,7 @@
         <span>首页</span>
       </div>
       <div class="icon-cart">
+        <span v-if="totalCount > 0" class="num">{{ totalCount }}</span>
         <van-icon name="shopping-cart-o" />
         <span>购物车</span>
       </div>
@@ -118,6 +119,8 @@
 </template>
 
 <script>
+import { Dialog } from 'vant'
+import { cartAddSend } from '@/api/cart'
 import { getComment, getDetailPro } from '@/api/prodetail'
 import defaultImg from '@/assets/default-avatar.png'
 import countBox from '@/components/CountBox.vue'
@@ -145,8 +148,8 @@ export default {
       commentList: [],
       showPannel: false,
       mode: 'cart',
-      count: 1
-
+      count: 1,
+      totalCount: 0
     }
   },
   computed: {
@@ -183,7 +186,35 @@ export default {
       }
     },
     // 购买
-    handleBuy () {
+    async handleBuy () {
+      // 判断是否登录状态
+      if (!this.isLogin()) {
+        console.log('请登录')
+        Dialog.confirm({
+          title: '温馨提示',
+          message: '此时需要先登录才能继续操作哦',
+          confirmButtonText: '去登录',
+          cancelButtonText: '再逛逛'
+        })
+          .then(() => {
+          // on confirm
+            this.$router.replace({
+              path: '/login',
+              query: {
+                backUrl: this.$route.fullPath
+              }
+            })
+          })
+          .catch(() => {
+          // on cancel
+          })
+      } else {
+        // 登陆了
+        console.log('已登录')
+      }
+    },
+    // 添加到购物车
+    async handleAdd () {
       // 判断是否登录状态
       if (!this.isLogin()) {
         console.log('请登录')
@@ -194,12 +225,12 @@ export default {
           }
         })
       } else {
+        // 登陆了
         console.log('已登录')
+        const res = await cartAddSend(this.id, this.count, this.detail.skuList[0].goods_sku_id)
+        console.log(res)
+        this.totalCount = res.data.cartTotal
       }
-    },
-    // 添加到购物车
-    handleAdd () {
-
     }
   }
 }
@@ -408,4 +439,20 @@ export default {
   }
 }
 
+.footer .icon-cart {
+  position: relative;
+  padding: 0 6px;
+  .num {
+    z-index: 999;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    min-width: 16px;
+    padding: 0 4px;
+    text-align: center;
+    color: #fff;
+    background-color: red;
+    border-radius: 50%;
+  }
+}
 </style>

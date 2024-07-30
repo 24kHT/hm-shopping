@@ -1,3 +1,4 @@
+import store from '@/store'
 import axios from 'axios'
 import { Toast } from 'vant'
 const instance = axios.create({
@@ -13,6 +14,14 @@ instance.interceptors.request.use(function (config) {
     forbidClick: true,
     duration: 0
   })
+
+  // 携带请求头信息
+  const token = store.state.user.userInfo.token
+  if (token) {
+    config.headers['Access-Token'] = token
+    config.headers.platform = 'H5'
+  }
+
   return config
 }, function (error) {
   // 对请求错误做些什么
