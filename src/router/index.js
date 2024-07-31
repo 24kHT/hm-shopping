@@ -66,7 +66,7 @@ const router = new VueRouter({
   routes
 })
 
-const authUrl = ['/cart', '/myorder']
+const authUrl = ['/pay', '/myorder']
 
 // 路由前置守卫
 router.beforeEach((to, from, next) => {
