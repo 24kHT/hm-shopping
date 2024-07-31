@@ -56,7 +56,7 @@
             <div class="name">{{ item.user.nick_name }}</div>
             <van-rate :size="16" :value="item.score/2" color="#ffd21e" void-icon="star" void-color="#eee"/>
           </div>
-          <div class="content">
+          <div class="content text-ellipsis-3">
             {{ item.content }}
           </div>
           <div class="time">
@@ -326,6 +326,7 @@ export default {
   .comment-item {
     font-size: 16px;
     line-height: 30px;
+    overflow-wrap: break-word;
     .top {
       height: 30px;
       display: flex;
@@ -388,7 +389,7 @@ export default {
 }
 
  .content {
-    padding: 16px 16px 16px 0px;
+    padding: 16px 16px 8px 2px;
   }
 
 .product {

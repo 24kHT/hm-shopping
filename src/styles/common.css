@@ -10,6 +10,13 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+.text-ellipsis-3 {
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 html {
   background-color: #FFFFFF;
 }
