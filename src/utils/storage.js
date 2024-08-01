@@ -1,6 +1,8 @@
 // 个人信息本地存储删除查看模块
 const INFO_KEY = 'hm_shopping_info'
 const HISTORY_KEY = 'hm_history_list'
+const ADDRESS_KEY = 'hm_address_list'
+
 // 本地存数据
 export const setInfo = (info) => {
   localStorage.setItem(INFO_KEY, JSON.stringify(info))
@@ -29,4 +31,15 @@ export const setHistoryList = (arr) => {
 export const getHistoryList = () => {
   const arr = localStorage.getItem(HISTORY_KEY)
   return arr ? JSON.parse(arr) : []
+}
+
+// 本地存储地址列表
+export const setAdressList = (arr) => {
+  localStorage.setItem(ADDRESS_KEY, JSON.stringify(arr))
+}
+
+// 获取本地地址列表
+export const getAdressList = () => {
+  const address = localStorage.getItem(ADDRESS_KEY)
+  return address ? JSON.parse(address) : []
 }

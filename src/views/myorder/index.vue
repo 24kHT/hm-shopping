@@ -3,7 +3,7 @@
     <van-nav-bar fixed title="订单结算台" left-arrow @click-left="$router.go(-1)" />
 
     <!-- 地址相关 -->
-    <div class="address">
+    <div class="address" @click="$router.push('/address')">
 
       <div class="left-icon">
         <van-icon name="logistics" />
@@ -11,11 +11,11 @@
 
       <div class="info" v-if="true">
         <div class="info-content">
-          <span class="name">小红</span>
-          <span class="mobile">13811112222</span>
+          <span class="name">{{ selAddress.name }}</span>
+          <span class="mobile">{{ selAddress.phone }}</span>
         </div>
         <div class="info-address">
-          江苏省 无锡市 南长街 110号 504
+          {{ getRegion }}
         </div>
       </div>
 
@@ -95,13 +95,38 @@
 </template>
 
 <script>
+import { getAddressList } from '@/api/myorder'
+import { setAdressList } from '@/utils/storage'
+
 export default {
   name: 'PayIndex',
+  async created () {
+    const res = await getAddressList()
+    console.log(res)
+    this.addressList = res.data.list
+    console.log(this.getRegion)
+    // 持久化存储
+    setAdressList(this.addressList)
+  },
   data () {
     return {
+      addressList: []
+    }
+  },
+  computed: {
+    // 选择的地址
+    selAddress () {
+      return this.addressList[0] || false
+    },
+    // 详细地址
+    getRegion () {
+      if (!this.selAddress) { return }
+      const region = this.selAddress.region
+      return region.province + region.city + region.region + this.selAddress.detail
     }
   },
   methods: {
+
   }
 }
 </script>
