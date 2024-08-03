@@ -11,9 +11,10 @@
 
     <!-- 地址列表 -->
     <div class="address-list">
-        <AddressBox></AddressBox>
-        <AddressBox></AddressBox>
-        <AddressBox></AddressBox>
+        <AddressBox v-for="item in addressList" :key="item.address_id" :item="item"></AddressBox>
+    </div>
+    <div class="btn-wrapper">
+      <button class="btn"><van-icon name="add-o" class="add-icon" />添加收获地址</button>
     </div>
   </div>
 </template>
@@ -24,7 +25,7 @@ import AddressBox from '@/components/AddressBox.vue'
 export default {
   name: 'setAddressIndex',
   created () {
-    // console.log(this.addressList)
+    console.log(this.addressList)
   },
   components: {
     AddressBox
@@ -46,5 +47,24 @@ export default {
 .setAddress {
     height: 100vh;
     background-color: #ccc9c49d;
+}
+.btn-wrapper {
+  position: relative;
+  top: 10px;
+  display: flex;
+  justify-content: center;
+  .btn {
+    width: 90%;
+    height: 36px;
+    background-color: rgb(206, 46, 46);
+    border: none;
+    border-radius: 8px;
+    color: rgb(236, 222, 222);
+    font-size: 22px;
+    .add-icon {
+      font-size: 22px;
+      vertical-align: middle;
+    }
+  }
 }
 </style>

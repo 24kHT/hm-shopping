@@ -11,11 +11,11 @@
 
       <div class="info" v-if="true">
         <div class="info-content">
-          <span class="name">{{ selAddress.name }}</span>
-          <span class="mobile">{{ selAddress.phone }}</span>
+          <span class="name"> {{selAddress?.name}} </span>
+          <span class="mobile"> {{selAddress?.phone}}</span>
         </div>
         <div class="info-address">
-          {{ getRegion }}
+           {{ selAddress?.region?.province }} {{ selAddress?.region?.city }} {{ selAddress?.region?.region }}
         </div>
       </div>
 
@@ -96,37 +96,32 @@
 
 <script>
 import { getAddressList } from '@/api/myorder'
-import { setAdressList } from '@/utils/storage'
+import { setAddressList } from '@/utils/storage'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'PayIndex',
   async created () {
-    const res = await getAddressList()
-    console.log(res)
-    this.addressList = res.data.list
-    console.log(this.getRegion)
-    // 持久化存储
-    setAdressList(this.addressList)
+    // 获取后端收货地址
+    const { data: { list } } = await getAddressList()
+    // 持久化存储收货地址
+    setAddressList(list)
+    // 获取默认地址
+    this.selAddress = await this.defaultAddressAction()
+    console.log(this.selAddress)
   },
   data () {
     return {
-      addressList: []
+      selAddress: {}
     }
   },
   computed: {
-    // 选择的地址
-    selAddress () {
-      return this.addressList[0] || false
-    },
-    // 详细地址
-    getRegion () {
-      if (!this.selAddress) { return }
-      const region = this.selAddress.region
-      return region.province + region.city + region.region + this.selAddress.detail
-    }
+    ...mapState('address', ['addressList']),
+    ...mapGetters('address', ['getSeladdress'])
+
   },
   methods: {
-
+    ...mapActions('address', ['defaultIdAction', 'defaultAddressAction'])
   }
 }
 </script>

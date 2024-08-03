@@ -1,7 +1,7 @@
 <template>
   <div class="address-box">
     <div class="header">
-        张，13123456789
+        {{ item.name }}，{{ item.phone }}
     </div>
     <div class="content">
         浙江省杭州市sidytaduiadjfygadfuyjgy11111111211111111111111111111111111111爱国
@@ -16,6 +16,14 @@
 <script>
 export default {
   name: 'addressBox',
+  props: {
+    item: {
+      type: Object
+    }
+  },
+  created () {
+    console.log(this.item)
+  },
   data () {
     return {
       checked: true

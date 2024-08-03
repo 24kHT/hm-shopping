@@ -2,6 +2,7 @@
 const INFO_KEY = 'hm_shopping_info'
 const HISTORY_KEY = 'hm_history_list'
 const ADDRESS_KEY = 'hm_address_list'
+const DEFAULT_KEY = 'hm_address_default_id'
 
 // 本地存数据
 export const setInfo = (info) => {
@@ -34,12 +35,23 @@ export const getHistoryList = () => {
 }
 
 // 本地存储地址列表
-export const setAdressList = (arr) => {
+export const setAddressList = (arr) => {
   localStorage.setItem(ADDRESS_KEY, JSON.stringify(arr))
 }
 
 // 获取本地地址列表
-export const getAdressList = () => {
+export const getAddressList = () => {
   const address = localStorage.getItem(ADDRESS_KEY)
   return address ? JSON.parse(address) : []
+}
+
+// 本地存储默认地址Id
+export const setDefaultId = (id) => {
+  localStorage.setItem(DEFAULT_KEY, JSON.stringify(id))
+}
+
+// 本地读取默认地址Id
+export const getDefaultId = () => {
+  const id = localStorage.getItem(DEFAULT_KEY)
+  return id ? JSON.parse(id) : -1
 }
