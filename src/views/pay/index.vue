@@ -124,6 +124,10 @@ export default {
   computed: {
     ...mapState('address', ['addressList']),
     ...mapGetters('address', ['getSeladdress']),
+    selectAddress () {
+    // 这里地址管理不是主线业务，直接获取默认第一条地址
+      return this.addressList[0]
+    },
     mode () {
       return this.$route.query.mode
     },
