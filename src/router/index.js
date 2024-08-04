@@ -12,6 +12,7 @@ import Search from '@/views/search'
 import Prodetail from '@/views/prodetail'
 import SearchList from '@/views/search/list.vue'
 import Address from '@/views/address'
+import Pay from '@/views/pay'
 
 import store from '@/store'
 
@@ -64,6 +65,10 @@ const routes = [
   {
     path: '/address',
     component: Address
+  },
+  {
+    path: '/pay',
+    component: Pay
   }
 ]
 
