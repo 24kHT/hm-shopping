@@ -1,8 +1,10 @@
 import Vue from 'vue'
 // 按需引入vant-ui插件
 
-import { Button, Tabbar, TabbarItem, NavBar, Toast, Search, Swipe, SwipeItem, Grid, GridItem, Image as VanImage, Icon, Rate, ActionSheet, Checkbox, CheckboxGroup, Divider, Dialog, Form, Field } from 'vant'
+import { Button, Tabbar, TabbarItem, NavBar, Toast, Search, Swipe, SwipeItem, Grid, GridItem, Image as VanImage, Icon, Rate, ActionSheet, Checkbox, CheckboxGroup, Divider, Dialog, Form, Field, Tab, Tabs } from 'vant'
 
+Vue.use(Tab)
+Vue.use(Tabs)
 Vue.use(Form)
 Vue.use(Field)
 // 全局注册
