@@ -67,7 +67,7 @@
     <div class="service">
       <div class="title">我的服务</div>
       <div class="content">
-        <div class="content-item">
+        <div class="content-item" @click="$router.push('address')">
           <van-icon name="records" />
           <span>收货地址</span>
         </div>
