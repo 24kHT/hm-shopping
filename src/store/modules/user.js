@@ -1,4 +1,4 @@
-import { getInfo } from '@/utils/storage'
+import { getInfo, removeInfo } from '@/utils/storage'
 
 export default {
   namespaced: true,
@@ -16,6 +16,7 @@ export default {
     logout (context) {
       context.commit('setUserInfo', {})
       context.commit('cart/setCartList', [], { root: true })
+      removeInfo()
     }
   },
   getters: {}

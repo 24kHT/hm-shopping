@@ -132,6 +132,10 @@ export default {
     countBox
   },
   async created () {
+    // 若登陆状态，渲染购物车商品数量
+    if (this.isLogin()) {
+      this.$store.dispatch('cart/getCartAction')
+    }
     const res = await getDetailPro(this.id)
     this.detail = res.data.detail
     // console.log(this.detail)
@@ -149,11 +153,15 @@ export default {
       commentList: [],
       showPannel: false,
       mode: 'cart',
-      count: 1,
-      totalCount: 0
+      count: 1
     }
   },
   computed: {
+    totalCount () {
+      const sum = this.$store.getters['cart/cartTotal']
+      console.log(sum)
+      return sum
+    },
     id () {
       return this.$route.params.id
     }
